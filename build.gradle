@@ -1,0 +1,30 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+group = 'com.marcnuri'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+description = "Common Spring Framework testing utilities"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly group: 'org.springframework', name: 'spring-beans', version: SPRING_VERSION
+    compileOnly group: 'org.springframework', name: 'spring-context', version: SPRING_VERSION
+    compileOnly group:  'org.mockito', name: 'mockito-core', version: MOCKITO_VERSION
+    testCompileOnly group: 'org.springframework', name: 'spring-beans', version: SPRING_VERSION
+    testCompileOnly group: 'org.springframework', name: 'spring-context', version: SPRING_VERSION
+    testCompileOnly group:  'org.mockito', name: 'mockito-core', version: MOCKITO_VERSION
+    testCompileOnly group: 'junit', name: 'junit', version: JUNIT_VERSION
+    testCompileOnly group: 'org.hamcrest', name: 'hamcrest-all', version: HAMCREST_VERSION
+    testCompileOnly group: 'org.springframework', name: 'spring-test', version: SPRING_VERSION
+
+}
