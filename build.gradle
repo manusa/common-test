@@ -6,9 +6,12 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'maven'
+apply plugin: 'signing'
+
 
 group = 'com.marcnuri'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.0-SNAPSHOT'
 sourceCompatibility = 1.8
 description = "Common Spring Framework testing utilities"
 
@@ -27,4 +30,69 @@ dependencies {
     testCompileOnly group: 'org.hamcrest', name: 'hamcrest-all', version: HAMCREST_VERSION
     testCompileOnly group: 'org.springframework', name: 'spring-test', version: SPRING_VERSION
 
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(
+                        userName: ossrhUsername,
+                        password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(
+                        userName: ossrhUsername,
+                        password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'spring-common-test'
+                packaging 'jar'
+                description 'Common Spring Framework testing utilities'
+                url 'https://github.com/manusa/spring-common-test'
+
+                scm {
+                    connection 'scm:git:git://github.com/manusa/spring-common-test.git'
+                    developerConnection 'scm:git:ssh://github.com:manusa/spring-common-test.git'
+                    url 'https://github.com/manusa/spring-common-test'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        name 'Marc Nuri'
+                        email 'marc@marcnuri.com'
+                    }
+                }
+            }
+        }
+    }
 }
