@@ -1,13 +1,15 @@
 language: java
 branches:
   only:
-    - develop
-    - master
+  - develop
+  - master
 install:
-  - "./gradlew assemble -x signArchives"
+- "./gradlew assemble -x signArchives"
 script:
-  - "./gradlew check"
-  - "./travisDeploy.sh"
+- "./gradlew check"
+- "./travisDeploy.sh"
+after_success:
+- ./gradlew jacocoTestReport coveralls
 env:
   global:
   - secure: uOZpEgGDdsVWXl4VAp5Mx2KgcBThVjOgC4XYw6KRxJ4wGrLT+A+QDQaD/CvG+2T9f9eiyluGP2t/cy6Nc9q3DHl4HQQhWSfEU4hZY7LdkzaXFxpSN0ZdjM4cukV4v88y30ptqlBvGJKs1tbeVdTsjq2ELWqVf7VaJkj7HwfWwosOmi5zRtnPR5mjYuxXw9aV5akfqFUam8RmPxq8F8+RMnBlAnoNjK8iLMQG2RO561kW27RFcWDlaw0Fx/hZPGkAvd6f4ogvnsFGsdPagXmOq7br/IOzTC7/W95jK7qPcRX5r22K0gjYtzcQV1e/aJU+zfMh++186EUzvV5gsIbz16lseGjktshfbU6f7JbUkE8gEMy7vC8Ayy5UQjRYKXZgbGdkJr3WGVVfjrH+FsDvtQhmgDTMbpvVtNfOHsaUXmOJl1pHc4WFYBjqPvLTxQ5QoPEiKjjZCRCpqK8QXsjvDTL5leR6g/GJOkYKEon8WAj4171uWzp+JmcWnSqkmBN1cEg29lXau/4saTTMfhHu9BLMzPT8Fg0Z8uYicn6OBF4CS/sVLfgL2NKwHDI0Ae/9cy5r547M+N4pg4ukeLM4KlmGqbAVXwnpricAktkUDl+5GxzCSGHBd4+qQ6hFQ7y3YBEm/5Blkb7coS7cCHcFGxGxKmidjENQnZwvci/2Kp4=
