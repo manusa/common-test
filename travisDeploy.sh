@@ -1,9 +1,9 @@
 #!/bin/bash
 ####################################################################################################
-#  Script     : k8s
+#  Script     : travisDeploy.sh
 #  Author     : Marc Nuri
 #  Date       : 2018/05/24
-#  Last Edited: 2018/05/25, Marc Nuri
+#  Last Edited: 2018/05/26, Marc Nuri
 #  Description: Script to automate deployment of artifacts to Sonatype ossrh
 ####################################################################################################
 
